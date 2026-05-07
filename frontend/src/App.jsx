@@ -1,7 +1,7 @@
-import TemplateList from "./pages/TemplateList";
+import AuthPage from "./pages/AuthPage";
 
 function App() {
-  return <TemplateList />;
+  return <AuthPage />;
 }
 
 export default App;
