@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  loginUser,
+  registerUser,
+} from "../services/apiService";
 
 function AuthPage({ setIsAuthenticated }) {
   const navigate = useNavigate();
@@ -19,7 +23,7 @@ function AuthPage({ setIsAuthenticated }) {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!formData.email || !formData.password) {
@@ -32,11 +36,26 @@ function AuthPage({ setIsAuthenticated }) {
       return;
     }
 
-    localStorage.setItem("isAuthenticated", "true");
+    try {
+  if (isLogin) {
+    await loginUser(formData);
+  } else {
+    await registerUser(formData);
+  }
 
-    setIsAuthenticated(true);
+  localStorage.setItem(
+    "isAuthenticated",
+    "true"
+  );
 
-    navigate("/templates");
+  setIsAuthenticated(true);
+
+  navigate("/templates");
+} catch (error) {
+  console.log(error);
+
+  alert("Backend not connected yet");
+}
   };
 
   return (
