@@ -1,21 +1,23 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 import AuthPage from "./pages/AuthPage";
-import TemplateList from "./pages/TemplateList";
-import ProtectedRoute from "./components/ProtectedRoute";
+import TemplatePage from "./pages/TemplatePage";
+import Dashboard from "./pages/Dashboard";
+
 import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    const auth = localStorage.getItem("isAuthenticated");
-
-    if (auth === "true") {
-      setIsAuthenticated(true);
-    }
-  }, []);
+  const [isAuthenticated, setIsAuthenticated] =
+    useState(
+      localStorage.getItem("isAuthenticated") === "true"
+    );
 
   return (
     <BrowserRouter>
@@ -41,7 +43,18 @@ function App() {
             <ProtectedRoute
               isAuthenticated={isAuthenticated}
             >
-              <TemplateList />
+              <TemplatePage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+            >
+              <Dashboard />
             </ProtectedRoute>
           }
         />
