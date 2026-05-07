@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function AuthPage() {
+function AuthPage({ setIsAuthenticated }) {
+  const navigate = useNavigate();
+
   const [isLogin, setIsLogin] = useState(true);
 
   const [formData, setFormData] = useState({
@@ -29,13 +32,11 @@ function AuthPage() {
       return;
     }
 
-    alert(isLogin ? "Login Successful" : "Signup Successful");
+    localStorage.setItem("isAuthenticated", "true");
 
-    setFormData({
-      name: "",
-      email: "",
-      password: "",
-    });
+    setIsAuthenticated(true);
+
+    navigate("/templates");
   };
 
   return (
