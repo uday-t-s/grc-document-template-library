@@ -36,6 +36,22 @@ HR Team
     }, 2000);
   };
 
+  const handleDownload = () => {
+    const element = document.createElement("a");
+
+    const file = new Blob([generatedText], {
+      type: "text/plain",
+    });
+
+    element.href = URL.createObjectURL(file);
+
+    element.download = "generated-document.txt";
+
+    document.body.appendChild(element);
+
+    element.click();
+  };
+
   return (
     <div className="bg-gray-800 text-white rounded-xl p-6 mt-10 shadow-lg">
       <h2 className="text-2xl font-bold mb-6">
@@ -71,6 +87,13 @@ HR Team
           </h3>
 
           <p>{generatedText}</p>
+
+          <button
+            onClick={handleDownload}
+            className="bg-green-500 hover:bg-green-600 px-6 py-3 rounded-lg mt-6"
+          >
+            Download Document
+          </button>
         </div>
       )}
     </div>
