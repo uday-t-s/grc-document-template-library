@@ -1,4 +1,5 @@
 import FileManager from "../components/FileManager";
+import AIGenerator from "../components/AIGenerator";
 
 function Dashboard() {
   const stats = [
@@ -21,7 +22,7 @@ function Dashboard() {
   ];
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
+    <div className="min-h-screen bg-gray-900 text-white p-8">
       <h1 className="text-4xl font-bold mb-8">
         Dashboard
       </h1>
@@ -30,9 +31,9 @@ function Dashboard() {
         {stats.map((item, index) => (
           <div
             key={index}
-            className="bg-white shadow-lg rounded-xl p-6"
+            className="bg-gray-800 rounded-xl p-6 shadow-lg"
           >
-            <h2 className="text-lg text-gray-500">
+            <h2 className="text-lg text-gray-300">
               {item.title}
             </h2>
 
@@ -43,27 +44,29 @@ function Dashboard() {
         ))}
       </div>
 
-      <div className="bg-white mt-10 p-6 rounded-xl shadow-lg">
+      <div className="bg-gray-800 mt-10 p-6 rounded-xl shadow-lg">
         <h2 className="text-2xl font-bold mb-4">
           Recent Activity
         </h2>
 
         <ul className="space-y-3">
-          <li className="border-b pb-2">
+          <li className="border-b border-gray-600 pb-2">
             Offer Letter generated
           </li>
 
-          <li className="border-b pb-2">
+          <li className="border-b border-gray-600 pb-2">
             NDA template updated
           </li>
 
-          <li className="border-b pb-2">
+          <li className="border-b border-gray-600 pb-2">
             Resume template downloaded
           </li>
         </ul>
       </div>
 
       <FileManager />
+
+      <AIGenerator />
     </div>
   );
 }
