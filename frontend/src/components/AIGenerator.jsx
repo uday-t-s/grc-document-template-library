@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 function AIGenerator() {
   const [prompt, setPrompt] = useState("");
@@ -10,7 +11,7 @@ function AIGenerator() {
 
   const handleGenerate = () => {
     if (!prompt) {
-      alert("Please enter a prompt");
+      toast.error("Please enter a prompt");
       return;
     }
 
@@ -32,6 +33,10 @@ Regards,
 HR Team
       `);
 
+      toast.success(
+        "Document generated successfully"
+      );
+
       setLoading(false);
     }, 2000);
   };
@@ -50,6 +55,8 @@ HR Team
     document.body.appendChild(element);
 
     element.click();
+
+    toast.success("Document downloaded");
   };
 
   return (
@@ -73,8 +80,10 @@ HR Team
       </button>
 
       {loading && (
-        <div className="mt-6">
-          <p className="animate-pulse text-purple-300">
+        <div className="mt-6 flex items-center gap-3">
+          <div className="w-5 h-5 border-4 border-purple-400 border-t-transparent rounded-full animate-spin"></div>
+
+          <p className="text-purple-300">
             Generating AI document...
           </p>
         </div>
