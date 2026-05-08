@@ -4,4 +4,4 @@ const API = axios.create({
   baseURL: "http://localhost:8080",
 });
 
-export const getTemplates = () => API.get("/templates");
+export default API;

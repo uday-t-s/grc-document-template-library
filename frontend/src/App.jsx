@@ -1,6 +1,6 @@
 import { ToastContainer } from "react-toastify";
 import { useState } from "react";
-
+import RegisterPage from "./pages/RegisterPage";
 
 import {
   BrowserRouter,
@@ -30,6 +30,7 @@ function App() {
       )}
 
       <Routes>
+        <Route path="/register" element={<RegisterPage />} />
         <Route
           path="/"
           element={
