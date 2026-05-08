@@ -45,4 +45,4 @@ Expected Output:
 Talking Points:
 - JwtFilter validation
 - Protected APIs
-- Spring Security authorization
+- Spring Security authorization 
