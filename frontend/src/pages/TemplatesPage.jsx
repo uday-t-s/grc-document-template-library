@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function TemplatesPage() {
+
+  const navigate = useNavigate();
 
   const [search, setSearch] = useState("");
 
@@ -51,7 +54,7 @@ function TemplatesPage() {
     >
 
       <h1>
-        Dashboard
+        Templates Dashboard
       </h1>
 
       <input
@@ -79,7 +82,8 @@ function TemplatesPage() {
           background: "#198754",
           color: "white",
           border: "none",
-          borderRadius: "5px"
+          borderRadius: "5px",
+          cursor: "pointer"
         }}
       >
         Export CSV
@@ -106,6 +110,23 @@ function TemplatesPage() {
           >
 
             <h3>{item}</h3>
+
+            <button
+              onClick={() =>
+                navigate("/template")
+              }
+              style={{
+                marginTop: "10px",
+                padding: "10px",
+                background: "#0d6efd",
+                color: "white",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer"
+              }}
+            >
+              Open Template
+            </button>
 
           </div>
         ))}

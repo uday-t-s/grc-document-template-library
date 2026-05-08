@@ -1,32 +1,24 @@
-return (
-  <form
-    onSubmit={handleSubmit}
-    className="bg-white shadow-lg p-6 rounded-xl mb-6 max-w-2xl mx-auto"
-  >
-    <h2 className="text-2xl font-bold mb-4 text-center">
-      Add Template
-    </h2>
+function TemplateForm() {
 
-    <input
-      type="text"
-      placeholder="Title"
-      value={title}
-      onChange={(e) => setTitle(e.target.value)}
-      className="border p-3 w-full mb-4 rounded-lg"
-    />
+  return (
 
-    <textarea
-      placeholder="Description"
-      value={description}
-      onChange={(e) => setDescription(e.target.value)}
-      className="border p-3 w-full mb-4 rounded-lg"
-    />
+    <div>
 
-    <button
-      type="submit"
-      className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-lg w-full"
-    >
-      Add Template
-    </button>
-  </form>
-);
+      <h2>
+        Template Form
+      </h2>
+
+      <input
+        type="text"
+        placeholder="Enter template name"
+        style={{
+          padding: "10px",
+          width: "300px"
+        }}
+      />
+
+    </div>
+  );
+}
+
+export default TemplateForm;

@@ -1,11 +1,11 @@
-# SECURITY DOCUMENTATION
+SECURITY DOCUMENTATION
 
-## Project Name
+Project Name
 GRC Document Template Library
 
 ---
 
-# 1. Authentication
+1. Authentication
 
 The application uses JWT (JSON Web Token)
 based authentication for secure login sessions.
@@ -19,7 +19,7 @@ After successful login:
 
 ---
 
-# 2. Password Security
+2. Password Security
 
 Passwords are encrypted using BCryptPasswordEncoder.
 
@@ -32,7 +32,7 @@ Security benefits:
 
 ---
 
-# 3. Authorization
+3. Authorization
 
 Spring Security is used for securing APIs.
 
@@ -42,7 +42,7 @@ Unauthorized requests are blocked automatically.
 
 ---
 
-# 4. JWT Validation
+4. JWT Validation
 
 Custom JwtFilter validates:
 - token signature
@@ -76,7 +76,7 @@ Database credentials configured through:
 
 ---
 
-# 7. API Protection
+7. API Protection
 
 Protected endpoints:
 - /api/user
@@ -88,7 +88,7 @@ Public endpoints:
 
 ---
 
-# 8. Dependency Security
+8. Dependency Security
 
 Main security libraries:
 - Spring Security
@@ -98,7 +98,7 @@ Main security libraries:
 
 ---
 
-# 9. Deployment Security
+9. Deployment Security
 
 Docker-based isolated containers used for:
 - frontend
@@ -112,7 +112,7 @@ Benefits:
 
 ---
 
-# 10. Security Best Practices Followed
+10. Security Best Practices Followed
 
 - Password hashing
 - Token authentication
@@ -124,7 +124,7 @@ Benefits:
 
 ---
 
-# 11. Future Improvements
+11. Future Improvements
 
 Future planned enhancements:
 - Role-based authorization
@@ -136,6 +136,6 @@ Future planned enhancements:
 
 ---
 
-# Prepared By
+Prepared By
 
 Java Developer 2 Team

@@ -1,72 +1,148 @@
-import FileManager from "../components/FileManager";
-import AIGenerator from "../components/AIGenerator";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 function Dashboard() {
-  const stats = [
-    {
-      title: "Total Templates",
-      value: 12,
-    },
-    {
-      title: "Users",
-      value: 8,
-    },
-    {
-      title: "Generated Docs",
-      value: 25,
-    },
-    {
-      title: "Downloads",
-      value: 14,
-    },
-  ];
+
+  const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-8">
-      <h1 className="text-4xl font-bold mb-8">
-        Dashboard
-      </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((item, index) => (
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#f5f7fb"
+      }}
+    >
+
+      <Navbar />
+
+      <div
+        style={{
+          padding: "40px"
+        }}
+      >
+
+        <h1
+          style={{
+            fontSize: "40px",
+            marginBottom: "10px",
+            color: "#1e293b"
+          }}
+        >
+          Dashboard
+        </h1>
+
+        <p
+          style={{
+            color: "#64748b",
+            marginBottom: "40px"
+          }}
+        >
+          Welcome to GRC Document Template Library
+        </p>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(250px, 1fr))",
+            gap: "20px"
+          }}
+        >
+
           <div
-            key={index}
-            className="bg-gray-800 rounded-xl p-6 shadow-lg"
+            style={{
+              background: "white",
+              padding: "30px",
+              borderRadius: "15px",
+              boxShadow: "0 2px 10px rgba(0,0,0,0.08)"
+            }}
           >
-            <h2 className="text-lg text-gray-300">
-              {item.title}
+
+            <h2
+              style={{
+                marginBottom: "15px"
+              }}
+            >
+              Templates
             </h2>
 
-            <p className="text-3xl font-bold mt-2">
-              {item.value}
+            <p
+              style={{
+                color: "#64748b",
+                marginBottom: "20px"
+              }}
+            >
+              View and manage templates
             </p>
+
+            <button
+  onClick={() =>
+    navigate("/templates")
+  }
+  style={{
+    padding: "12px 20px",
+    background: "#2563eb",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontWeight: "bold"
+  }}
+>
+  Open Templates
+</button>
+
           </div>
-        ))}
+
+          <div
+            style={{
+              background: "white",
+              padding: "30px",
+              borderRadius: "15px",
+              boxShadow: "0 2px 10px rgba(0,0,0,0.08)"
+            }}
+          >
+
+            <h2
+              style={{
+                marginBottom: "15px"
+              }}
+            >
+              File Manager
+            </h2>
+
+            <p
+              style={{
+                color: "#64748b",
+                marginBottom: "20px"
+              }}
+            >
+              Manage generated files
+            </p>
+
+            <button
+              onClick={() =>
+                navigate("/files")
+              }
+              style={{
+                padding: "12px 20px",
+                background: "#16a34a",
+                color: "white",
+                border: "none",
+                borderRadius: "8px",
+                cursor: "pointer"
+              }}
+            >
+              Open File Manager
+            </button>
+
+          </div>
+
+        </div>
+
       </div>
 
-      <div className="bg-gray-800 mt-10 p-6 rounded-xl shadow-lg">
-        <h2 className="text-2xl font-bold mb-4">
-          Recent Activity
-        </h2>
-
-        <ul className="space-y-3">
-          <li className="border-b border-gray-600 pb-2">
-            Offer Letter generated
-          </li>
-
-          <li className="border-b border-gray-600 pb-2">
-            NDA template updated
-          </li>
-
-          <li className="border-b border-gray-600 pb-2">
-            Resume template downloaded
-          </li>
-        </ul>
-      </div>
-
-      <FileManager />
-
-      <AIGenerator />
     </div>
   );
 }

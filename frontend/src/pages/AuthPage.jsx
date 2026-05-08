@@ -33,7 +33,7 @@ function AuthPage() {
         response.data.token
       );
 
-      navigate("/templates");
+      navigate("/dashboard");
 
     } catch (error) {
 
