@@ -26,4 +26,30 @@ public class JwtUtil {
                 .signWith(KEY, SignatureAlgorithm.HS256)
                 .compact();
     }
+    public static String extractEmail(String token) {
+
+    return Jwts.parserBuilder()
+            .setSigningKey(KEY)
+            .build()
+            .parseClaimsJws(token)
+            .getBody()
+            .getSubject();
+}
+
+public static boolean validateToken(String token) {
+
+    try {
+
+        Jwts.parserBuilder()
+                .setSigningKey(KEY)
+                .build()
+                .parseClaimsJws(token);
+
+        return true;
+
+    } catch (Exception e) {
+
+        return false;
+    }
+}
 }

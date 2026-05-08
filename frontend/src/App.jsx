@@ -1,68 +1,27 @@
-import { ToastContainer } from "react-toastify";
-import { useState } from "react";
-import RegisterPage from "./pages/RegisterPage";
-
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import AuthPage from "./pages/AuthPage";
-import TemplatePage from "./pages/TemplatePage";
-import Dashboard from "./pages/Dashboard";
-
-import Navbar from "./components/Navbar";
-import ProtectedRoute from "./components/ProtectedRoute";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] =
-    useState(
-      localStorage.getItem("isAuthenticated") === "true"
-    );
 
   return (
+
     <BrowserRouter>
-      {isAuthenticated && (
-        <Navbar
-          setIsAuthenticated={setIsAuthenticated}
-        />
-      )}
 
       <Routes>
-        <Route path="/register" element={<RegisterPage />} />
-        <Route
-          path="/"
-          element={
-            <AuthPage
-              setIsAuthenticated={setIsAuthenticated}
-            />
-          }
-        />
+
+        <Route path="/" element={<AuthPage />} />
 
         <Route
-          path="/templates"
-          element={
-            <ProtectedRoute
-              isAuthenticated={isAuthenticated}
-            >
-              <TemplatePage />
-            </ProtectedRoute>
-          }
+          path="/register"
+          element={<RegisterPage />}
         />
 
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute
-              isAuthenticated={isAuthenticated}
-            >
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
       </Routes>
+
     </BrowserRouter>
+
   );
 }
 

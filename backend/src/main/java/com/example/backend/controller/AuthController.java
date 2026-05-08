@@ -12,6 +12,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class AuthController {
 
     @Autowired
@@ -49,12 +50,6 @@ public class AuthController {
             throw new RuntimeException("Invalid password");
         }
 
-        String token = JwtUtil.generateToken(user.getEmail());
-
-return Map.of(
-        "message", "Login successful",
-        "role", user.getRole(),
-        "token", token
-);
+        
     }
 }
