@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function RegisterPage() {
 
@@ -23,70 +24,133 @@ function RegisterPage() {
         }
       );
 
-      setMessage(response.data.message);
+      console.log(response.data);
+
+      setMessage("User registered successfully");
 
     } catch (error) {
 
       console.error(error);
 
       setMessage("Registration failed");
-
     }
   };
 
   return (
 
-    <div style={{ padding: "40px" }}>
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "#f5f5f5"
+      }}
+    >
 
-      <h1>Register</h1>
+      <div
+        style={{
+          width: "350px",
+          padding: "30px",
+          background: "white",
+          borderRadius: "10px",
+          boxShadow: "0 0 10px rgba(0,0,0,0.1)"
+        }}
+      >
 
-      <form onSubmit={handleRegister}>
+        <h1
+          style={{
+            textAlign: "center",
+            marginBottom: "20px"
+          }}
+        >
+          Signup
+        </h1>
 
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) =>
-            setName(e.target.value)
-          }
-        />
+        <form onSubmit={handleRegister}>
 
-        <br />
-        <br />
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) =>
+              setName(e.target.value)
+            }
+            style={{
+              width: "100%",
+              padding: "10px",
+              marginBottom: "15px"
+            }}
+          />
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) =>
-            setEmail(e.target.value)
-          }
-        />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) =>
+              setEmail(e.target.value)
+            }
+            style={{
+              width: "100%",
+              padding: "10px",
+              marginBottom: "15px"
+            }}
+          />
 
-        <br />
-        <br />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) =>
+              setPassword(e.target.value)
+            }
+            style={{
+              width: "100%",
+              padding: "10px",
+              marginBottom: "15px"
+            }}
+          />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) =>
-            setPassword(e.target.value)
-          }
-        />
+          <button
+            type="submit"
+            style={{
+              width: "100%",
+              padding: "10px",
+              background: "#0d6efd",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer"
+            }}
+          >
+            Signup
+          </button>
 
-        <br />
-        <br />
+        </form>
 
-        <button type="submit">
-          Register
-        </button>
+        <p
+          style={{
+            marginTop: "15px",
+            textAlign: "center"
+          }}
+        >
+          Already have an account?{" "}
 
-      </form>
+          <Link to="/">
+            Login
+          </Link>
+        </p>
 
-      <br />
+        <p
+          style={{
+            textAlign: "center",
+            marginTop: "10px"
+          }}
+        >
+          {message}
+        </p>
 
-      <p>{message}</p>
+      </div>
 
     </div>
   );

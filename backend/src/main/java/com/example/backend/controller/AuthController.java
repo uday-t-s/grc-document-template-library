@@ -11,7 +11,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin("*")
+
 @CrossOrigin(origins = "*")
 public class AuthController {
 
@@ -36,20 +36,31 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public Map<String, String> login(@RequestBody Map<String, String> body) {
+    public Map<String, Object> login(@RequestBody Map<String, String> body) {
+    String email = body.get("email");
+    String password = body.get("password");
 
-        String email = body.get("email");
-        String password = body.get("password");
+    User user = userRepository.findByEmail(email)
+        .orElseThrow(() ->
+            new RuntimeException("User not found")
+        );
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new RuntimeException("User not found")
-                );
+    if (!passwordEncoder.matches(password, user.getPassword())) {
+        throw new RuntimeException("Invalid password");
+    }
 
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new RuntimeException("Invalid password");
-        }
+    // Generate JWT token
+    String token = JwtUtil.generateToken(email);
 
-        
+    return Map.of(
+        "message", "Login successful",
+        "token", token,
+        "user", Map.of(
+            "id", user.getId(),
+            "email", user.getEmail(),
+            "name", user.getName(),
+            "role", user.getRole()
+        )
+    );
     }
 }

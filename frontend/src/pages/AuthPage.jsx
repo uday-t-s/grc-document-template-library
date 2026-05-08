@@ -1,121 +1,153 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  loginUser,
-  registerUser,
-} from "../services/apiService";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
-function AuthPage({ setIsAuthenticated }) {
+function AuthPage() {
+
   const navigate = useNavigate();
 
-  const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const handleLogin = async (e) => {
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.email || !formData.password) {
-      alert("Please fill all required fields");
-      return;
-    }
-
-    if (!isLogin && !formData.name) {
-      alert("Name is required");
-      return;
-    }
-
     try {
-  if (isLogin) {
-    await loginUser(formData);
-  } else {
-    await registerUser(formData);
-  }
 
-  localStorage.setItem(
-    "isAuthenticated",
-    "true"
-  );
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/login",
+        {
+          email,
+          password
+        }
+      );
 
-  setIsAuthenticated(true);
+      console.log(response.data);
 
-  navigate("/templates");
-} catch (error) {
-  console.log(error);
+      setMessage("Login successful");
 
-  alert("Backend not connected yet");
-}
+      localStorage.setItem(
+        "token",
+        response.data.token
+      );
+
+      navigate("/templates");
+
+    } catch (error) {
+
+      console.error(error);
+
+      setMessage(
+        error.response?.data?.message ||
+        "Login failed"
+      );
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center mb-6">
-          {isLogin ? "Login" : "Signup"}
+
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "#f5f5f5"
+      }}
+    >
+
+      <div
+        style={{
+          width: "350px",
+          padding: "30px",
+          background: "white",
+          borderRadius: "10px",
+          boxShadow: "0 0 10px rgba(0,0,0,0.1)"
+        }}
+      >
+
+        <h1
+          style={{
+            textAlign: "center",
+            marginBottom: "20px"
+          }}
+        >
+          Login
         </h1>
 
-        <form onSubmit={handleSubmit}>
-          {!isLogin && (
-            <input
-              type="text"
-              name="name"
-              placeholder="Full Name"
-              value={formData.name}
-              onChange={handleChange}
-              className="border p-3 w-full mb-4 rounded-lg"
-            />
-          )}
+        <form onSubmit={handleLogin}>
 
           <input
             type="email"
-            name="email"
             placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            className="border p-3 w-full mb-4 rounded-lg"
+            value={email}
+            onChange={(e) =>
+              setEmail(e.target.value)
+            }
+            style={{
+              width: "100%",
+              padding: "10px",
+              marginBottom: "15px"
+            }}
           />
 
           <input
             type="password"
-            name="password"
             placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            className="border p-3 w-full mb-6 rounded-lg"
+            value={password}
+            onChange={(e) =>
+              setPassword(e.target.value)
+            }
+            style={{
+              width: "100%",
+              padding: "10px",
+              marginBottom: "15px"
+            }}
           />
 
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white w-full py-3 rounded-lg"
+            style={{
+              width: "100%",
+              padding: "10px",
+              background: "#0d6efd",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer"
+            }}
           >
-            {isLogin ? "Login" : "Signup"}
+            Login
           </button>
+
         </form>
 
-        <p className="text-center mt-4">
-          {isLogin
-            ? "Don't have an account?"
-            : "Already have an account?"}
+        <p
+          style={{
+            marginTop: "15px",
+            textAlign: "center"
+          }}
+        >
+          Don’t have an account?{" "}
 
-          <button
-            onClick={() => setIsLogin(!isLogin)}
-            className="text-blue-500 ml-2"
-          >
-            {isLogin ? "Signup" : "Login"}
-          </button>
+          <Link to="/register">
+            Register
+          </Link>
         </p>
+
+        <p
+          style={{
+            textAlign: "center",
+            marginTop: "10px"
+          }}
+        >
+          {message}
+        </p>
+
       </div>
+
     </div>
   );
 }
